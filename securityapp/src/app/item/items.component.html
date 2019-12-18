@@ -1,0 +1,18 @@
+<ActionBar title="My App">
+  <ActionItem
+    *ngIf="authService.isAuthenticated"
+    ios.position="right"
+    (tap)="logout()"
+  >
+    <Button text="logout"></Button>
+  </ActionItem>
+</ActionBar>
+<GridLayout>
+  <ListView [items]="items">
+    <ng-template let-item="item">
+      <StackLayout>
+        <Label [nsRouterLink]="['/item', item.id]" [text]="item.name"></Label>
+      </StackLayout>
+    </ng-template>
+  </ListView>
+</GridLayout>
