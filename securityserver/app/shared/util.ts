@@ -1,4 +1,6 @@
 import { genSaltSync, hashSync, compareSync } from 'bcryptjs'
+import { User } from './models/user.model'
+import { sign } from 'jsonwebtoken'
 
 export function hashPassword(password: string): string {
   const salt = genSaltSync(12)
@@ -11,6 +13,20 @@ export function verifyPassword(
   hashedPassword: string
 ): boolean {
   return compareSync(passwordAttempted, hashedPassword)
+}
+
+export function createToken(user: User): string {
+  const payload = {
+    id: user.id,
+    email: user.email
+  }
+  const secret = process.env['SECRET']
+
+  const signedToken = sign(payload, secret, {
+    algorithm: 'HS256',
+    expiresIn: '1h'
+  })
+  return signedToken
 }
 
 export const newGuid = () => {
