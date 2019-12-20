@@ -14,4 +14,18 @@
     [text]="isLoggingIn ? 'Sign up' : 'Back to login'"
     (tap)="toggleDisplay()"
   ></Button>
+
+  <StackLayout class="hr"></StackLayout>
+
+  <Button
+    text="Login with Facebook"
+    (tap)="onLoginFacebookTap()"
+    class="btn btn-primary btn-active"
+  ></Button>
+  <Button
+    text="Login with Microsoft"
+    (tap)="onLoginMicrosoftTap()"
+    class="btn btn-primary btn-active"
+  ></Button>
+  <Label [text]="'Logged in as ' + name"></Label>
 </StackLayout>
