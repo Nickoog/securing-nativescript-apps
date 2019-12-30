@@ -14,7 +14,7 @@ export class TnsOaProviderMyCustomProvider implements TnsOaProvider {
   public openIdSupport: OpenIdSupportNone = 'oid-none'
   public providerType = 'myCustomProvider'
   public authority = 'https://www.facebook.com/v3.1/dialog'
-  public tokenEndpointBase = 'http://localhost:7071'
+  public tokenEndpointBase = 'https:securityfuncapp1.azurewebsites.net'
   public authorizeEndpoint = '/oauth'
   public tokenEndpoint = '/api/MySecurityHttpTriggerFunction'
   public cookieDomains = ['facebook.com']
