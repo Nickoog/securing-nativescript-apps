@@ -5,23 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach to Node Functions",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "preLaunchTask": "func: host start"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/securityserver/server.js",
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ]
-    },
-    {
-      "name": "Attach to Node Functions",
-      "type": "node",
-      "request": "attach",
-      "port": 9229,
-      "preLaunchTask": "func: host start"
+      "program": "${workspaceFolder}/MySecurityHttpTriggerFunction/index.js"
     }
   ]
 }
