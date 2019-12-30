@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit {
     private http: HttpClient
   ) {
     this.user = {
-      email: 'alex@nuvious.com',
+      email: 'nh@gmail.com',
       password: 'password'
     }
   }
@@ -79,6 +79,10 @@ export class AuthComponent implements OnInit {
       console.log('back to app component with token ' + result.accessToken)
       this.getMicrosoftName()
     })
+  }
+
+  public onLoginAuth0Tap() {
+    this.authService.auth0Login()
   }
 
   private getFacebookUserName() {

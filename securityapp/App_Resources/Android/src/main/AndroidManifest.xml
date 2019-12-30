@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="__PACKAGE__"
+	package="org.nativescript.securityapp"
 	android:versionCode="1"
 	android:versionName="1.0">
 
@@ -40,10 +40,14 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<!-- Custom Path data -->
-
+				<data
+					android:host="nativescript-security.auth0.com"
+					android:pathPrefix="/android/${applicationId}/callback"
+					android:scheme="https" />
 				<data android:path="/auth" android:scheme="msalbb6eaff7-921e-4269-8dc5-458bd1d7d3a0"/>
 			</intent-filter>
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
 	</application>
 </manifest>
+ 

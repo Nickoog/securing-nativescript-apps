@@ -27,5 +27,10 @@
     (tap)="onLoginMicrosoftTap()"
     class="btn btn-primary btn-active"
   ></Button>
+  <Button
+    text="Login with Auth0"
+    (tap)="onLoginAuth0Tap()"
+    class="btn btn-primary btn-active"
+  ></Button>
   <Label [text]="'Logged in as ' + name"></Label>
 </StackLayout>

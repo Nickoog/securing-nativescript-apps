@@ -43,18 +43,21 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>None</string>
 			<key>CFBundleURLName</key>
-			<string>org.nativescript.securityapp</string>
+			<string>auth0</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>msalbb6eaff7-921e-4269-8dc5-458bd1d7d3a0</string>
+				<string>org.nativescript.securityapp</string>
 			</array>
 		</dict>
 	</array>
+
 </dict>
 </plist>

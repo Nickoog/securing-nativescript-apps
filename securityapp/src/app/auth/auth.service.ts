@@ -19,6 +19,8 @@ import {
   TnsOaProviderMicrosoft
 } from 'nativescript-oauth2/providers/providers'
 
+import { Auth0 } from 'nativescript-auth0'
+
 import { HttpClient } from '@angular/common/http'
 import { Config } from '~/config'
 
@@ -28,6 +30,7 @@ const EXPIRATION_KEY = 'EXPIRATION_KEY'
 @Injectable()
 export class AuthService {
   private client: TnsOAuthClient = null
+  private auth0: Auth0 = null
 
   public get isAuthenticated(): boolean {
     const expires = appSettingsModule.getNumber(EXPIRATION_KEY)
@@ -49,7 +52,12 @@ export class AuthService {
     return appSettingsModule.getString(ACCESS_TOKEN_KEY)
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.auth0 = new Auth0(
+      's7v9FgAZCfztZ4j91rmJuEQj8PgQwbVs',
+      'nativescript-security.auth0.com'
+    )
+  }
 
   private tnsOauthLogin(providerType): Promise<ITnsOAuthTokenResult> {
     this.client = new TnsOAuthClient(providerType)
@@ -62,7 +70,7 @@ export class AuthService {
             reject(error)
           } else {
             console.log('received oauth result: ')
-            console.dir(tokenResult)
+            console.log(tokenResult)
             this.setToken(tokenResult.accessToken)
             this.setExpiration(Number(tokenResult.accessTokenExpiration))
             resolve(tokenResult)
@@ -104,5 +112,16 @@ export class AuthService {
 
   public microsoftLogin(): Promise<any> {
     return this.tnsOauthLogin('microsoft')
+  }
+
+  public auth0Login() {
+    this.auth0
+      .webAuthentication({
+        scope: 'openid offline_access'
+      })
+      .then(result => {
+        console.log(result)
+      })
+      .catch(er => console.log(er))
   }
 }
