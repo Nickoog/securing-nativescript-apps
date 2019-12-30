@@ -1,16 +1,48 @@
-module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const https = require('https')
+const querystring = require('querystring')
 
-    if (req.query.name || (req.body && req.body.name)) {
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name)
-        };
+module.exports = async function(context, req) {
+  const body = req.body
+  return new Promise((resolve, reject) => {
+    if (body) {
+      const options = {
+        host: getEnvironmentVariable('tokenHost'),
+        port: parseInt(getEnvironmentVariable('tokenPort')),
+        path: getEnvironmentVariable('tokenPath'),
+        method: 'POST'
+      }
+
+      const paramsObj = querystring.parse(body)
+      paramsObj.client_secret = getEnvironmentVariable('tokenClientSecret')
+      const postData = querystring.stringify(paramsObj)
+
+      let result = null
+
+      const req = https.request(options, res => {
+        res.on('data', chunk => {
+          result = chunk
+        })
+        res.on('end', () => {
+          context.res = {
+            status: 200,
+            body: result
+          }
+          resolve()
+        })
+      })
+
+      req.write(postData)
+      req.end()
+    } else {
+      context.res = {
+        status: 400,
+        body: 'Please pass a request body'
+      }
+      resolve()
     }
-    else {
-        context.res = {
-            status: 400,
-            body: "Please pass a name on the query string or in the request body"
-        };
-    }
-};
+  })
+}
+
+function getEnvironmentVariable(name) {
+  return process.env[name]
+}

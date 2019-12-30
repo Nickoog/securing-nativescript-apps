@@ -6,18 +6,27 @@ import {
   TnsOaProviderOptionsMicrosoft,
   TnsOaProviderMicrosoft
 } from 'nativescript-oauth2/providers/providers'
+import {
+  TnsOaMyCustomProviderOptions,
+  TnsOaProviderMyCustomProvider
+} from './my-oauth-provider'
 
 export function configureOAuthProviders() {
   const facebookProvider = configureOAuthProviderFacebook()
   const microsoftProvider = configureOAuthProviderMicrosoft()
-  configureTnsOAuth([facebookProvider, microsoftProvider])
+  const facebookProxyProvider = configureOAuthProviderFacebookProxy()
+  configureTnsOAuth([
+    facebookProvider,
+    microsoftProvider,
+    facebookProxyProvider
+  ])
 }
 
 function configureOAuthProviderFacebook(): TnsOaProvider {
   const options: TnsOaProviderOptionsFacebook = {
     openIdSupport: 'oid-none',
     clientId: '2580205072256646',
-    clientSecret: '853abc01ffa3c3f81880c59ab2901661',
+    clientSecret: '9ecbbaa1dc14c968c4d5a99c94224590',
     redirectUri: 'https://www.facebook.com/connect/login_success.html',
     scopes: ['email'] //list of scopes
   }
@@ -37,4 +46,17 @@ function configureOAuthProviderMicrosoft(): TnsOaProvider {
 
   const microsoftProvider = new TnsOaProviderMicrosoft(options)
   return microsoftProvider
+}
+
+function configureOAuthProviderFacebookProxy(): TnsOaProvider {
+  const options: TnsOaMyCustomProviderOptions = {
+    openIdSupport: 'oid-none',
+    clientId: '2580205072256646',
+    clientSecret: '',
+    redirectUri: 'https://www.facebook.com/connect/login_success.html',
+    scopes: ['email'] //list of scopes
+  }
+
+  const myProvider = new TnsOaProviderMyCustomProvider(options)
+  return myProvider
 }

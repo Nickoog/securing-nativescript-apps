@@ -124,4 +124,8 @@ export class AuthService {
       })
       .catch(er => console.log(er))
   }
+
+  public facebookProxyLogin(): Promise<any> {
+    return this.tnsOauthLogin('myCustomProvider')
+  }
 }

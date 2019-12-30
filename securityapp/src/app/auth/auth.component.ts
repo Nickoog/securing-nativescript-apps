@@ -74,6 +74,15 @@ export class AuthComponent implements OnInit {
     })
   }
 
+  public onLoginFacebookProxyTap() {
+    this.authService
+      .facebookProxyLogin()
+      .then((result: ITnsOAuthTokenResult) => {
+        console.log('back to app component with token ' + result.accessToken)
+        this.getFacebookUserName()
+      })
+  }
+
   public onLoginMicrosoftTap() {
     this.authService.microsoftLogin().then((result: ITnsOAuthTokenResult) => {
       console.log('back to app component with token ' + result.accessToken)
@@ -92,7 +101,7 @@ export class AuthComponent implements OnInit {
     })
 
     this.http
-      .get<{ name: string }>('https://graph.facebook.com/v5.0/me?fields=name', {
+      .get<{ name: string }>('https://graph.facebook.com/v5/me?fields=name', {
         headers
       })
       .subscribe(result => {
